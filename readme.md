@@ -180,3 +180,61 @@ public Employee(String n,double s){this(....)}
 - 包将类组织在一个集合中，防止类重名。同理，包名需要绝对唯一。
 - 一个类可以使用所属包中所有的类，以及其他包的公共类。访问其他包时用import。两个包中使用了两个同名类时，需要写全包名。
 - 静态导入：只导入静态方法和静态字段。
+ 
+ 
+ 
+## 5 继承
+
+### 5.1 类、超类（父类）、子类
+
+```java
+public class Manage extends Employee{
+}
+```
+- super，对比this，类似于一个父类的对象。
+- 多态：一个对象变量，可以指示多种实际类型的现象，称为多态。
+- 子类的方法可以覆盖父类的方法，如果父类方法为public，则子类方法也至少为public。
+- final关键字：final类无法继续继承，没有子类
+- 类的强制类型转换使用的场景：当使用子类中特有的方法时，才需要进行：
+- 类的强制类型转换：只能在继承层次内进行强制类型转换，将父类强制类型转换时子类时，先用instanceof进行检查，看能不能转换。
+- 抽象方法：返回空的方法，起到占位的作用。
+
+- 抽象类：类中包含一个或以上抽象方法的类。抽象类不能进行实例化，不能生成对象。可以指定一个抽象类的对象变量，但是这个对象变量只能引用非抽象类对象。
+```java
+Person p = new Student("vince vu","Economics");
+```
+- public：对外部完全可见
+- 无修饰符，默认：对本包可见。
+- protect修饰符：对本包和所有子类可见。
+- private:仅对本类可见。
+
+### 5.2：Object类：所有类的超类
+- 如果没有明确指出超类，则默认为Object类
+
+#### 5.2.1 Object 类型的变量
+- 可以用Object类型的变量引用任何类型的对象。
+#### 5.2.2 equals方法
+- 子类复写后的方法，用来判断值是否相等。
+- == 判断内存地址是否相等。
+- 书中有对写equals方法的建议（P177）
+#### 5.2.4 hashCode方法
+- 为了鉴别对象是否相同，Object类的hashcode方法默认根据对象的存储地址得到散列码。对于内置的String类型，复写了该方法，hashcode根据内容得出，相同内容的String，得到的hashcode也相同。
+而对于StringBuild方法，由于没有复写hashcode方法，所以内容相同的对象，得到的hashcode不同。
+- equals与hashcode定义必须相容：如果x.equals(y)->true,那么,x.hashcode()必须与y.hashcode()相同。
+
+#### 5.2.5 toString方法
+- 返回对象的字符串表示，比如Employee中toString方法->"Employee[name=...,salary=...,hireDay=...,]"
+
+### 5.3 泛型数组列表
+```java
+ArrayList<Employee> staff = new ArrayList<Employee>();
+var staff = new ArrayList<Employee>();
+staff.add(new Employee("name",...)); //增加元素
+staff.size() //返回元素个数
+staff.ensureCapacity(100) //初始分配100个元素的内存空间
+staff.trimToSize // 将数组列表存储容量削减到当前大小。
+staff.get(i) //访问
+staff.set(i,harry)//设置   
+```
+ 5.4 对象包装器与自动装箱
+ - 基本数据类型对应的对象称为包装器。 int->Integer... 
